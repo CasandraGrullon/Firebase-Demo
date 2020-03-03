@@ -14,7 +14,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var profilePicture: UIImageView!
     @IBOutlet weak var displayNameTextField: UITextField!
     @IBOutlet weak var emailLabel: UILabel!
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,6 +35,13 @@ class ProfileViewController: UIViewController {
         //user.phoneNumber
         emailLabel.text = user.email
         displayNameTextField.text = user.displayName
+    }
+    
+    @IBAction func signOutButtonPressed(_ sender: UIBarButtonItem) {
+        guard let user = Auth.auth().currentUser else {
+            return
+        }
+        UIViewController.showViewController(storyboardName: "LoginView", viewcontrollerID: "LoginViewController")
     }
     
     @IBAction func updateButtonPressed(_ sender: UIButton) {
