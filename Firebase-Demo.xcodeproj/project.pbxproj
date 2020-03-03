@@ -30,6 +30,8 @@
 		C6133023240D77870031714A /* UIColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6133022240D77870031714A /* UIColorExt.swift */; };
 		C63C6A4124096E4E0008116D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C63C6A4024096E4E0008116D /* GoogleService-Info.plist */; };
 		C63C6A442409754F0008116D /* AuthenticationSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63C6A432409754F0008116D /* AuthenticationSession.swift */; };
+		C69C28A1240EDB8F00CA4D73 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69C28A0240EDB8F00CA4D73 /* ItemCell.swift */; };
+		C69C28A3240EDBA700CA4D73 /* ItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C69C28A2240EDBA700CA4D73 /* ItemCell.xib */; };
 		C6B0D5A6240D7B8F00BC30DC /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B0D5A5240D7B8F00BC30DC /* Item.swift */; };
 		C6B0D5A8240D7E5E00BC30DC /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B0D5A7240D7E5E00BC30DC /* DatabaseService.swift */; };
 		F0A5CF5CF15FF2BDBCEF16E5 /* Pods_Firebase_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1A6F4F00E21825A97F756D6 /* Pods_Firebase_Demo.framework */; };
@@ -76,6 +78,8 @@
 		C6133022240D77870031714A /* UIColorExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExt.swift; sourceTree = "<group>"; };
 		C63C6A4024096E4E0008116D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C63C6A432409754F0008116D /* AuthenticationSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationSession.swift; sourceTree = "<group>"; };
+		C69C28A0240EDB8F00CA4D73 /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
+		C69C28A2240EDBA700CA4D73 /* ItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCell.xib; sourceTree = "<group>"; };
 		C6B0D5A5240D7B8F00BC30DC /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		C6B0D5A7240D7E5E00BC30DC /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		C9CC00C06BA3F63D82C9583C /* Pods-Firebase-DemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Firebase-DemoTests.release.xcconfig"; path = "Target Support Files/Pods-Firebase-DemoTests/Pods-Firebase-DemoTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -163,6 +167,8 @@
 				57845AF024092DBB00F35651 /* GradientView.swift */,
 				57845AF224092DDC00F35651 /* DesignableView.swift */,
 				C613301D240D740D0031714A /* CategoryCell.swift */,
+				C69C28A0240EDB8F00CA4D73 /* ItemCell.swift */,
+				C69C28A2240EDBA700CA4D73 /* ItemCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -324,6 +330,7 @@
 			files = (
 				57845AD924092D4400F35651 /* LaunchScreen.storyboard in Resources */,
 				C63C6A4124096E4E0008116D /* GoogleService-Info.plist in Resources */,
+				C69C28A3240EDBA700CA4D73 /* ItemCell.xib in Resources */,
 				C613300E240D5E040031714A /* MainView.storyboard in Resources */,
 				57845AD624092D4400F35651 /* Assets.xcassets in Resources */,
 				57845AEF24092D5D00F35651 /* LoginView.storyboard in Resources */,
@@ -414,6 +421,7 @@
 				C6B0D5A6240D7B8F00BC30DC /* Item.swift in Sources */,
 				C6133012240D5F300031714A /* ItemFeedViewController.swift in Sources */,
 				C613301E240D740D0031714A /* CategoryCell.swift in Sources */,
+				C69C28A1240EDB8F00CA4D73 /* ItemCell.swift in Sources */,
 				C6133016240D5F480031714A /* ProfileViewController.swift in Sources */,
 				57845ACD24092D4300F35651 /* AppDelegate.swift in Sources */,
 				57845AF124092DBB00F35651 /* GradientView.swift in Sources */,
