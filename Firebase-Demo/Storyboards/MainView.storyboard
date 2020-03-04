@@ -176,6 +176,24 @@
                                     <action selector="updateButtonPressed:" destination="nBU-NS-jc0" eventType="touchUpInside" id="eMw-Iv-qSt"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9n-Cb-xPr" customClass="DesignableButton" customModule="Firebase_Demo" customModuleProvider="target">
+                                <rect key="frame" x="275" y="166" width="44" height="44"/>
+                                <color key="backgroundColor" red="0.98729866740000005" green="0.66700810690000001" blue="0.67368825440000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="2L9-5X-Dge"/>
+                                    <constraint firstAttribute="width" constant="44" id="VaP-nx-xN9"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="plus" catalog="system"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="22"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="editProfilePicButtonPressed:" destination="nBU-NS-jc0" eventType="touchUpInside" id="sUD-Ve-aMy"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -184,11 +202,13 @@
                             <constraint firstItem="vaV-Ca-w5V" firstAttribute="top" secondItem="qy4-ur-KHz" secondAttribute="bottom" constant="20" id="Dhl-2P-wlK"/>
                             <constraint firstItem="vaV-Ca-w5V" firstAttribute="leading" secondItem="cdT-of-OFZ" secondAttribute="leading" constant="20" id="G1T-zA-XVf"/>
                             <constraint firstItem="H2X-X8-n11" firstAttribute="centerY" secondItem="MPn-ab-MHW" secondAttribute="centerY" id="Lr9-CQ-vHe"/>
+                            <constraint firstItem="J9n-Cb-xPr" firstAttribute="leading" secondItem="8e9-x3-vVH" secondAttribute="trailing" constant="8" id="Zmt-Hm-QGm"/>
                             <constraint firstItem="8e9-x3-vVH" firstAttribute="centerX" secondItem="MPn-ab-MHW" secondAttribute="centerX" id="bid-7g-3V8"/>
                             <constraint firstItem="cdT-of-OFZ" firstAttribute="trailing" secondItem="vaV-Ca-w5V" secondAttribute="trailing" constant="20" id="dWU-sV-SnE"/>
                             <constraint firstItem="qy4-ur-KHz" firstAttribute="top" secondItem="8e9-x3-vVH" secondAttribute="bottom" constant="20" id="eZD-iS-Gpv"/>
                             <constraint firstItem="cdT-of-OFZ" firstAttribute="trailing" secondItem="qy4-ur-KHz" secondAttribute="trailing" constant="20" id="jai-Wl-ESz"/>
                             <constraint firstItem="8e9-x3-vVH" firstAttribute="top" secondItem="cdT-of-OFZ" secondAttribute="top" constant="40" id="kjz-bk-yKe"/>
+                            <constraint firstItem="J9n-Cb-xPr" firstAttribute="centerY" secondItem="8e9-x3-vVH" secondAttribute="centerY" id="upy-h8-5sq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cdT-of-OFZ"/>
                     </view>
@@ -327,5 +347,6 @@
         <image name="dollarsign.circle" catalog="system" width="64" height="60"/>
         <image name="magnifyingglass" catalog="system" width="64" height="56"/>
         <image name="person" catalog="system" width="64" height="58"/>
+        <image name="plus" catalog="system" width="64" height="56"/>
     </resources>
 </document>

@@ -10,14 +10,28 @@ import UIKit
 import FirebaseAuth
 
 class ProfileViewController: UIViewController {
-
+    
     @IBOutlet weak var profilePicture: UIImageView!
     @IBOutlet weak var displayNameTextField: UITextField!
     @IBOutlet weak var emailLabel: UILabel!
-        
+    
+    private lazy var imagePickerController: UIImagePickerController = {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        return imagePicker
+    }()
+    
+    private var selectedImage = UIImage() {
+        didSet{
+            DispatchQueue.main.async {
+                self.profilePicture.image = self.selectedImage
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         displayNameTextField.delegate = self
         updateUI()
     }
@@ -37,10 +51,34 @@ class ProfileViewController: UIViewController {
         displayNameTextField.text = user.displayName
     }
     
-    @IBAction func signOutButtonPressed(_ sender: UIBarButtonItem) {
-        guard let user = Auth.auth().currentUser else {
-            return
+    @IBAction func editProfilePicButtonPressed(_ sender: UIButton) {
+        let alertController = UIAlertController(title: "Edit Profile Picture", message: nil, preferredStyle: .actionSheet)
+        
+        let cameraAction = UIAlertAction(title: "Camera", style: .default) { alertAction in
+            self.imagePickerController.sourceType = .camera
+            self.present(self.imagePickerController, animated: true)
         }
+        
+        let photoLibrary = UIAlertAction(title: "Photo Library", style: .default) { alertAction in
+            self.imagePickerController.sourceType = .photoLibrary
+            self.present(self.imagePickerController, animated: true)
+        }
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil) //don't need a handeler because the action style .cancel has that built in!
+        
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            alertController.addAction(cameraAction)
+        }
+        
+        alertController.addAction(photoLibrary)
+        alertController.addAction(cancel)
+        present(alertController, animated: true)
+        
+    }
+    
+    
+    @IBAction func signOutButtonPressed(_ sender: UIBarButtonItem) {
+        
         UIViewController.showViewController(storyboardName: "LoginView", viewcontrollerID: "LoginViewController")
     }
     
@@ -74,4 +112,20 @@ extension ProfileViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+}
+extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        //guarding against optional image user selected
+        guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
+            return
+        }
+        
+        selectedImage = image
+        
+        
+        dismiss(animated: true)
+    }
+    
 }

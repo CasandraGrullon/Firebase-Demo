@@ -33,6 +33,13 @@ class AuthenticationSession {
         }
         
     }
+    public func signOutUser() {
+        do {
+            try Auth.auth().signOut()
+        } catch {
+            print("could not sign out \(error)")
+        }
+    }
     
     
     
