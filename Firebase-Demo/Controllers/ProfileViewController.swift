@@ -21,13 +21,15 @@ class ProfileViewController: UIViewController {
         return imagePicker
     }()
     
-    private var selectedImage = UIImage() {
+    private var selectedImage: UIImage? {
         didSet{
             DispatchQueue.main.async {
                 self.profilePicture.image = self.selectedImage
             }
         }
     }
+    
+    private let storageService = StorageService()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +47,9 @@ class ProfileViewController: UIViewController {
             return
         }
         //user.displayName
-        //user.photoURL
+        
+        //need kingfisher!
+        //profilePicture.image = user.photoURL
         //user.phoneNumber
         emailLabel.text = user.email
         displayNameTextField.text = user.displayName
@@ -83,12 +87,44 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func updateButtonPressed(_ sender: UIButton) {
-        //change the user's display name
-        
-        guard let displayName = displayNameTextField.text, !displayName.isEmpty else {
+        //change the user's display name and profile picture
+        guard let displayName = displayNameTextField.text, !displayName.isEmpty,
+            let selectedImage = selectedImage else {
             showAlert(title: "Missing Fields!", message: "Please fill out all required fields")
             return
         }
+        
+        let resizeImage = UIImage.resizeImage(originalImage: selectedImage, rect: profilePicture.bounds)
+        
+        guard let user = Auth.auth().currentUser else {
+            return
+        }
+        
+        storageService.uploadPhoto(userId: user.uid ,image: resizeImage) { (result) in
+            switch result {
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self.showAlert(title: "Upload Error", message: "could not upload image")
+                }
+            case .success(let url):
+                let request = Auth.auth().currentUser?.createProfileChangeRequest()
+                
+                //2. change display name
+                request?.displayName = displayName
+                request?.photoURL = url
+                
+                //3. commit changes made
+                request?.commitChanges(completion: { [unowned self] (error) in
+                    if let error = error {
+                        self.showAlert(title: "Error", message: "commit changes error \(error)")
+                    } else {
+                        self.showAlert(title: "Success", message: "successfully updated profile")
+                    }
+                })
+            }
+        }
+        
+        //when you relaunch app query for image url
         
         //1. make a request
         let request = Auth.auth().currentUser?.createProfileChangeRequest()
@@ -104,6 +140,8 @@ class ProfileViewController: UIViewController {
                 self.showAlert(title: "Success", message: "successfully updated display name")
             }
         })
+        
+        
     }
     
 }
