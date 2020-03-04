@@ -28,6 +28,8 @@
 		C613301E240D740D0031714A /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C613301D240D740D0031714A /* CategoryCell.swift */; };
 		C6133020240D77420031714A /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = C613301F240D77420031714A /* Category.swift */; };
 		C6133023240D77870031714A /* UIColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6133022240D77870031714A /* UIColorExt.swift */; };
+		C614F67924100AE1003682FE /* UIImageExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C614F67824100AE1003682FE /* UIImageExt.swift */; };
+		C614F67B24100DD0003682FE /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C614F67A24100DD0003682FE /* StorageService.swift */; };
 		C63C6A4124096E4E0008116D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C63C6A4024096E4E0008116D /* GoogleService-Info.plist */; };
 		C63C6A442409754F0008116D /* AuthenticationSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63C6A432409754F0008116D /* AuthenticationSession.swift */; };
 		C69C28A1240EDB8F00CA4D73 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69C28A0240EDB8F00CA4D73 /* ItemCell.swift */; };
@@ -76,6 +78,8 @@
 		C613301D240D740D0031714A /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		C613301F240D77420031714A /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		C6133022240D77870031714A /* UIColorExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExt.swift; sourceTree = "<group>"; };
+		C614F67824100AE1003682FE /* UIImageExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExt.swift; sourceTree = "<group>"; };
+		C614F67A24100DD0003682FE /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		C63C6A4024096E4E0008116D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C63C6A432409754F0008116D /* AuthenticationSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationSession.swift; sourceTree = "<group>"; };
 		C69C28A0240EDB8F00CA4D73 /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
@@ -222,6 +226,7 @@
 				C6133019240D5F950031714A /* UIViewController+Navigation.swift */,
 				C613301B240D5FA50031714A /* UIViewController+Alerts.swift */,
 				C6133022240D77870031714A /* UIColorExt.swift */,
+				C614F67824100AE1003682FE /* UIImageExt.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -231,6 +236,7 @@
 			children = (
 				C63C6A432409754F0008116D /* AuthenticationSession.swift */,
 				C6B0D5A7240D7E5E00BC30DC /* DatabaseService.swift */,
+				C614F67A24100DD0003682FE /* StorageService.swift */,
 			);
 			path = FirebaseServices;
 			sourceTree = "<group>";
@@ -420,6 +426,7 @@
 				57845AD124092D4300F35651 /* LoginViewController.swift in Sources */,
 				C6B0D5A6240D7B8F00BC30DC /* Item.swift in Sources */,
 				C6133012240D5F300031714A /* ItemFeedViewController.swift in Sources */,
+				C614F67924100AE1003682FE /* UIImageExt.swift in Sources */,
 				C613301E240D740D0031714A /* CategoryCell.swift in Sources */,
 				C69C28A1240EDB8F00CA4D73 /* ItemCell.swift in Sources */,
 				C6133016240D5F480031714A /* ProfileViewController.swift in Sources */,
@@ -427,6 +434,7 @@
 				57845AF124092DBB00F35651 /* GradientView.swift in Sources */,
 				C6133018240D5F7A0031714A /* CreateItemViewController.swift in Sources */,
 				C6133014240D5F3C0031714A /* SellItemViewController.swift in Sources */,
+				C614F67B24100DD0003682FE /* StorageService.swift in Sources */,
 				C6133023240D77870031714A /* UIColorExt.swift in Sources */,
 				C613301C240D5FA50031714A /* UIViewController+Alerts.swift in Sources */,
 				C6133010240D5F110031714A /* MainTabBarController.swift in Sources */,
