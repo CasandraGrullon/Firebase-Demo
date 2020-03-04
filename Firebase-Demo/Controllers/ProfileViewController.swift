@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import Kingfisher
 
 class ProfileViewController: UIViewController {
     
@@ -49,7 +50,7 @@ class ProfileViewController: UIViewController {
         //user.displayName
         
         //need kingfisher!
-        //profilePicture.image = user.photoURL
+        profilePicture.kf.setImage(with: user.photoURL)
         //user.phoneNumber
         emailLabel.text = user.email
         displayNameTextField.text = user.displayName
