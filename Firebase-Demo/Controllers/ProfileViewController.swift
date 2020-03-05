@@ -83,16 +83,23 @@ class ProfileViewController: UIViewController {
     
     
     @IBAction func signOutButtonPressed(_ sender: UIBarButtonItem) {
+        do {
+            try Auth.auth().signOut()
+            UIViewController.showViewController(storyboardName: "LoginView", viewcontrollerID: "LoginViewController")
+        } catch {
+            DispatchQueue.main.async {
+                self.showAlert(title: "Could not log out", message: "\(error.localizedDescription)")
+            }
+        }
         
-        UIViewController.showViewController(storyboardName: "LoginView", viewcontrollerID: "LoginViewController")
     }
     
     @IBAction func updateButtonPressed(_ sender: UIButton) {
         //change the user's display name and profile picture
         guard let displayName = displayNameTextField.text, !displayName.isEmpty,
             let selectedImage = selectedImage else {
-            showAlert(title: "Missing Fields!", message: "Please fill out all required fields")
-            return
+                showAlert(title: "Missing Fields!", message: "Please fill out all required fields")
+                return
         }
         
         let resizeImage = UIImage.resizeImage(originalImage: selectedImage, rect: profilePicture.bounds)
@@ -101,46 +108,34 @@ class ProfileViewController: UIViewController {
             return
         }
         
-        storageService.uploadPhoto(userId: user.uid ,image: resizeImage) { (result) in
+        storageService.uploadPhoto(userId: user.uid ,image: resizeImage) { [weak self] (result) in
             switch result {
             case .failure(let error):
                 DispatchQueue.main.async {
-                    self.showAlert(title: "Upload Error", message: "could not upload image")
+                    self?.showAlert(title: "Upload Error", message: "could not upload image\(error)")
                 }
             case .success(let url):
                 let request = Auth.auth().currentUser?.createProfileChangeRequest()
                 
-                //2. change display name
+                //2. change display name and update photo
                 request?.displayName = displayName
                 request?.photoURL = url
                 
                 //3. commit changes made
                 request?.commitChanges(completion: { [unowned self] (error) in
                     if let error = error {
-                        self.showAlert(title: "Error", message: "commit changes error \(error)")
+                        DispatchQueue.main.async {
+                            self?.showAlert(title: "Error", message: "commit changes error \(error)")
+                        }
                     } else {
-                        self.showAlert(title: "Success", message: "successfully updated profile")
+                        DispatchQueue.main.async {
+                            self?.showAlert(title: "Success", message: "successfully updated your profile")
+                            
+                        }
                     }
                 })
             }
         }
-        
-        //when you relaunch app query for image url
-        
-        //1. make a request
-        let request = Auth.auth().currentUser?.createProfileChangeRequest()
-        
-        //2. change display name
-        request?.displayName = displayName
-        
-        //3. commit changes made
-        request?.commitChanges(completion: { [unowned self] (error) in
-            if let error = error {
-                self.showAlert(title: "Error", message: "commit changes error \(error)")
-            } else {
-                self.showAlert(title: "Success", message: "successfully updated display name")
-            }
-        })
         
         
     }
