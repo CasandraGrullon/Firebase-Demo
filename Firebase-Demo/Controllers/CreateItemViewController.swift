@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
 
 class CreateItemViewController: UIViewController {
     
@@ -18,6 +19,7 @@ class CreateItemViewController: UIViewController {
     private var category: Category
     
     private let dbService = DatabaseService()
+    private let storageService = StorageService()
     
     private var selectedImage: UIImage? {
         didSet {
@@ -34,7 +36,7 @@ class CreateItemViewController: UIViewController {
     }()
     
     private lazy var longpressGesture: UILongPressGestureRecognizer = {
-       let gesture = UILongPressGestureRecognizer()
+        let gesture = UILongPressGestureRecognizer()
         gesture.addTarget(self, action: #selector(showPhotoOptions(_:)))
         return gesture
     }()
@@ -73,7 +75,7 @@ class CreateItemViewController: UIViewController {
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
-           alertController.addAction(camera)
+            alertController.addAction(camera)
         }
         alertController.addAction(photoLibrary)
         alertController.addAction(cancelAction)
@@ -85,8 +87,9 @@ class CreateItemViewController: UIViewController {
         
         guard let itemName = itemNameTextField.text, !itemName.isEmpty,
             let priceText = itemPriceTextField.text, !priceText.isEmpty,
-            let price = Double(priceText) else {
-                showAlert(title: "Missing Fields", message: "All fields are required")
+            let price = Double(priceText),
+            let itemImage = selectedImage else {
+                showAlert(title: "Missing Fields", message: "All fields and an item image are required")
                 return
         }
         
@@ -95,6 +98,7 @@ class CreateItemViewController: UIViewController {
             return
         }
         
+        let resizePhoto = UIImage.resizeImage(originalImage: itemImage, rect: itemImageView.bounds)
         
         dbService.createItem(itemName: itemName, price: price, category: category, displayName: displayName) { [weak self] (result) in
             switch result {
@@ -102,14 +106,40 @@ class CreateItemViewController: UIViewController {
                 DispatchQueue.main.async {
                     self?.showAlert(title: "Error", message: "Could not create item \(error)")
                 }
-            case .success:
-                DispatchQueue.main.async {
-                    self?.showAlert(title: "✅", message: "successfully created item")
-                }
-                
+            case .success(let docID):
+                //Upload Photo to storage
+                self?.uploadPhoto(photo: resizePhoto, documentId: docID)
             }
         }
         
+    }
+    private func uploadPhoto(photo: UIImage, documentId: String) {
+        //converting image to data
+        storageService.uploadPhoto(itemId: documentId ,image: photo) { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self?.showAlert(title: "Error", message: "error uploading photo \(error)")
+                }
+            case .success(let url):
+                self?.updateItemImageURL(url, documentId: documentId)
+            }
+        }
+    }
+    private func updateItemImageURL(_ url: URL, documentId: String) {
+        //update an exisiting document on Firebase
+        Firestore.firestore().collection(DatabaseService.itemsCollection).document(documentId).updateData(["imageURL": url.absoluteString]) { [weak self] (error) in
+            if let error = error {
+                DispatchQueue.main.async {
+                    self?.showAlert(title: "failed to update item", message: " \(error)")
+                }
+            } else {
+                print("all went well")
+                DispatchQueue.main.async {
+                    self?.dismiss(animated: true)
+                }
+            }
+        }
     }
     
 }

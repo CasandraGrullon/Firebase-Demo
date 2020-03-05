@@ -16,6 +16,7 @@ struct Item {
     let sellerName: String
     let sellerId: String //id is generated when they sign up. It will not change if the user updates their username
     let categoryName: String
+    let imageURL: String
 }
 
 //Firebase does not take in Swift models, only accepts dictionaries
@@ -28,5 +29,6 @@ extension Item {
         self.sellerName = dictionary["sellerName"] as? String ?? "no username"
         self.sellerId = dictionary["sellerId"] as? String ?? "no seller id"
         self.categoryName = dictionary["categoryName"] as? String ?? "no category name"
+        self.imageURL = dictionary["imageURL"] as? String ?? "no item image"
     }
 }

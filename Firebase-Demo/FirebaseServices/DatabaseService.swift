@@ -16,7 +16,7 @@ class DatabaseService {
     
     static let itemsCollection = "items"
     
-    public func createItem(itemName: String, price: Double, category: Category, displayName: String, completion: @escaping (Result<Bool, Error>) -> () ) {
+    public func createItem(itemName: String, price: Double, category: Category, displayName: String, completion: @escaping (Result<String, Error>) -> () ) {
         guard let user = Auth.auth().currentUser else { return }
         
         // generate a document reference for our collection
@@ -32,8 +32,7 @@ class DatabaseService {
                 completion(.failure(error))
                 print("creating item error \(error)")
             } else {
-                completion(.success(true))
-                print("item was successfully created. id: \(documentRef.documentID)")
+                completion(.success(documentRef.documentID))
             }
             
             

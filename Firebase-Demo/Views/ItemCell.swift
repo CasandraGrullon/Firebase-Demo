@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ItemCell: UITableViewCell {
 
@@ -23,6 +24,7 @@ class ItemCell: UITableViewCell {
         dateLabel.text = item.listedDate.convertDate()
         let price = String(format: "%.2f", item.price)
         priceLabel.text = "$\(price)"
+        itemImage.kf.setImage(with: URL(string: item.imageURL))
     }
     
 }
