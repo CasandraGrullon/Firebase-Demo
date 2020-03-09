@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import Kingfisher
 
 class CommentCell: UITableViewCell {
 
@@ -14,8 +16,13 @@ class CommentCell: UITableViewCell {
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var commentLabel: UILabel!
     
-    public func configureCell() {
-        
+    public func configureCell(comment: Comment) {
+        guard let user = Auth.auth().currentUser else {
+            return
+        }
+        userProfilePic.kf.setImage(with: user.photoURL)
+        userNameLabel.text = user.displayName
+        commentLabel.text = comment.comment
     }
     
 }

@@ -370,6 +370,9 @@
                                     <constraint firstAttribute="width" constant="44" id="cGL-eo-XEo"/>
                                 </constraints>
                                 <state key="normal" image="plus.bubble.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="addCommentButtonPressed:" destination="EgV-S9-7xX" eventType="touchUpInside" id="ALt-e7-NJB"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -407,6 +410,16 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="DUh-w4-jKE"/>
                     </view>
+                    <connections>
+                        <outlet property="addCommentButton" destination="1G9-TI-W3F" id="Mwz-pm-z0T"/>
+                        <outlet property="commentTextField" destination="igd-WP-FmH" id="dGh-Ji-FzC"/>
+                        <outlet property="dateLabel" destination="FhP-u8-3fY" id="SGX-iY-aJQ"/>
+                        <outlet property="itemImage" destination="A04-fC-Ncr" id="WmT-uU-Ace"/>
+                        <outlet property="itemNameLabel" destination="Ib7-5N-VKc" id="unu-3D-7SS"/>
+                        <outlet property="priceLabel" destination="eEb-E3-lsR" id="LAe-rD-nI9"/>
+                        <outlet property="sellerNameLabel" destination="hlj-y3-YBT" id="6ZJ-ul-C3G"/>
+                        <outlet property="tableView" destination="rMG-F5-WKn" id="COh-FM-i9j"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Hj-OU-NL2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
