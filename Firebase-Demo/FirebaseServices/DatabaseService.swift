@@ -43,7 +43,7 @@ class DatabaseService {
         guard let user = Auth.auth().currentUser else { return }
         let documentRef = db.collection(DatabaseService.commentsColletion).document()
         
-        db.collection(DatabaseService.commentsColletion).document(documentRef.documentID).setData(["username": user.displayName ?? "no user name", "userId": user.uid, "itemId": itemId, "comment": comment, "datePosted": Date()]) { (error) in
+        db.collection(DatabaseService.commentsColletion).document(documentRef.documentID).setData(["username": user.displayName ?? "no user name", "userId": user.uid, "itemID": itemId, "comment": comment, "datePosted": Date()]) { (error) in
             if let error = error {
                 completion(.failure(error))
             } else {

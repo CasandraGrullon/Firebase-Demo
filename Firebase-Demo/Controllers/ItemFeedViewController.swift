@@ -22,7 +22,7 @@ class ItemFeedViewController: UIViewController {
             }
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
@@ -50,8 +50,8 @@ class ItemFeedViewController: UIViewController {
         //will no longer need to listen for changes from Firebase when the view dismisses
         listener?.remove()
     }
-
-
+    
+    
 }
 extension ItemFeedViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -66,7 +66,14 @@ extension ItemFeedViewController: UITableViewDataSource {
         cell.configureCell(item: item)
         return cell
     }
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let item = items[indexPath.row]
+        let detailSb = UIStoryboard(name: "MainView", bundle: nil)
+        let detailVC = detailSb.instantiateViewController(identifier: "ItemDetailViewController") { (coder) in
+            return ItemDetailViewController(item, coder: coder)
+        }
+        present(detailVC, animated: true)
+    }
     
 }
 extension ItemFeedViewController: UITableViewDelegate {

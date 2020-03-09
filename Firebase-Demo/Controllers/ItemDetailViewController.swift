@@ -23,19 +23,22 @@ class ItemDetailViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     private var listener: ListenerRegistration?
+    private var db = DatabaseService()
     
     private var item: Item
+    
     private var comments = [Comment]() {
         didSet{
             DispatchQueue.main.async {
+                
                 self.tableView.reloadData()
             }
         }
     }
     
-    init(_ item: Item) {
+    init?(_ item: Item, coder: NSCoder) {
         self.item = item
-        super.init(nibName: nil, bundle: nil)
+        super.init(coder: coder)
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -44,7 +47,11 @@ class ItemDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateItemInfo()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(UINib(nibName: "CommentCell", bundle: nil), forCellReuseIdentifier: "commentCell")
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         listener = Firestore.firestore().collection(DatabaseService.commentsColletion).addSnapshotListener({ (snapshot, error) in
@@ -55,7 +62,7 @@ class ItemDetailViewController: UIViewController {
             } else if let snapshot = snapshot {
                 DispatchQueue.main.async {
                     let comments = snapshot.documents.map {Comment ($0.data())}
-                    self.comments = comments
+                    self.comments = comments.filter {$0.itemId == self.item.itemId}
                 }
             }
         })
@@ -72,11 +79,54 @@ class ItemDetailViewController: UIViewController {
         dateLabel.text = item.listedDate.convertDate()
         let price = String(format: "%.2f", item.price)
         priceLabel.text = "$\(price)"
+        print(item.itemId)
     }
     
     
     @IBAction func addCommentButtonPressed(_ sender: UIButton) {
         //adds comment to firebase, presents in table view
+        guard let comment = commentTextField.text, let user = Auth.auth().currentUser, let username = user.displayName else {
+            return
+        }
+        db.createComment(username: username, userId: user.uid, itemId: item.itemId, comment: comment) { (result) in
+            switch result {
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self.showAlert(title: "could not create comment", message: "\(error)")
+                }
+            case .success(let docID):
+                Firestore.firestore().collection(DatabaseService.commentsColletion).document(docID).updateData(["comment": comment])
+            }
+        }
+        
     }
     
 }
+extension ItemDetailViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return comments.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath) as? CommentCell else {
+            fatalError("could not cast to comment cell")
+        }
+        let comment = comments[indexPath.row]
+        cell.configureCell(comment: comment)
+        return cell
+    }
+    
+    
+}
+extension ItemDetailViewController: UITableViewDelegate{
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 150
+    }
+}
+extension ItemDetailViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
+
