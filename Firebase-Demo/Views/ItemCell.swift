@@ -33,7 +33,7 @@ extension Date {
         let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = DateFormatter.Style.medium
-        dateFormatter.dateFormat = "MMMM dd, yyyy"
+        dateFormatter.dateFormat = "MM/dd/yyyy HH:mm"
         dateFormatter.timeZone = .current
         let localDate = dateFormatter.string(from: date)
         return localDate

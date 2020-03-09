@@ -100,7 +100,9 @@ class CreateItemViewController: UIViewController {
         
         let resizePhoto = UIImage.resizeImage(originalImage: itemImage, rect: itemImageView.bounds)
         
-        dbService.createItem(itemName: itemName, price: price, category: category, displayName: displayName) { [weak self] (result) in
+        let dateListed = Date().convertDate()
+        
+        dbService.createItem(itemName: itemName, price: price, category: category, displayName: displayName, dateListed: dateListed) { [weak self] (result) in
             switch result {
             case .failure(let error):
                 DispatchQueue.main.async {
@@ -161,3 +163,4 @@ extension CreateItemViewController: UIImagePickerControllerDelegate, UINavigatio
         
     }
 }
+

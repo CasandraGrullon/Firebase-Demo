@@ -15,8 +15,9 @@ private let db = Firestore.firestore() // reference to FirebaseFirestore databas
 class DatabaseService {
     
     static let itemsCollection = "items"
+    static let commentsColletion = "comments"
     
-    public func createItem(itemName: String, price: Double, category: Category, displayName: String, completion: @escaping (Result<String, Error>) -> () ) {
+    public func createItem(itemName: String, price: Double, category: Category, displayName: String, dateListed: String, completion: @escaping (Result<String, Error>) -> () ) {
         guard let user = Auth.auth().currentUser else { return }
         
         // generate a document reference for our collection
@@ -34,9 +35,20 @@ class DatabaseService {
             } else {
                 completion(.success(documentRef.documentID))
             }
-            
-            
         }
+    }
+    
+    public func createComment(username: String, userId: String, itemId: String, comment: String, completion: @escaping (Result<String, Error>) -> ()) {
         
+        guard let user = Auth.auth().currentUser else { return }
+        let documentRef = db.collection(DatabaseService.commentsColletion).document()
+        
+        db.collection(DatabaseService.commentsColletion).document(documentRef.documentID).setData(["username": user.displayName ?? "no user name", "userId": user.uid, "itemId": itemId, "comment": comment, "datePosted": Date()]) { (error) in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(documentRef.documentID))
+            }
+        }
     }
 }
