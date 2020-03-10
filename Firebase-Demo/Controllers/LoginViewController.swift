@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 enum AccountState {
     case existingUser
@@ -27,6 +28,8 @@ class LoginViewController: UIViewController {
     
     private var authSession = AuthenticationSession()
     
+    private let databaseService = DatabaseService()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         clearErrorLabel()
@@ -44,32 +47,46 @@ class LoginViewController: UIViewController {
     
     private func continueLoginFlow(email: String, password: String) {
         if accountState == .existingUser {
-            authSession.signExistingUser(email: email, password: password) { (result) in
+            authSession.signExistingUser(email: email, password: password) { [weak self] (result) in
                 switch result {
                 case .failure(let error):
                     DispatchQueue.main.async {
-                        self.errorLabel.text = "\(error.localizedDescription)"
-                        self.errorLabel.textColor = .systemRed
+                        self?.errorLabel.text = "\(error.localizedDescription)"
+                        self?.errorLabel.textColor = .systemRed
                     }
                 case .success:
                     DispatchQueue.main.async {
-                        self.navigateToMainView()
+                        self?.navigateToMainView()
                     }
                     
                 }
             }
         } else {
-            authSession.createNewUser(email: email, password: password) { (result) in
+            authSession.createNewUser(email: email, password: password) { [weak self] (result) in
                 switch result {
                     case .failure(let error):
                     DispatchQueue.main.async {
-                        self.errorLabel.text = "\(error.localizedDescription)"
-                        self.errorLabel.textColor = .systemRed
+                        self?.errorLabel.text = "\(error.localizedDescription)"
+                        self?.errorLabel.textColor = .systemRed
                     }
-                case .success:
-                    DispatchQueue.main.async {
-                        self.navigateToMainView()
-                    }
+                case .success(let authDataResult):
+                    // only need to do this when a new user is created
+                    self?.createDatabaseUser(authDataResult: authDataResult)
+                }
+            }
+        }
+    }
+    
+    private func createDatabaseUser(authDataResult: AuthDataResult) {
+        databaseService.createDatabaseUser(authDataResult: authDataResult) { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self?.showAlert(title: "unable to create a user", message: error.localizedDescription)
+                }
+            case .success:
+                DispatchQueue.main.async {
+                    self?.navigateToMainView()
                 }
             }
         }

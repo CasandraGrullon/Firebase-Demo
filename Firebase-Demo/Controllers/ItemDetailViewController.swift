@@ -30,7 +30,6 @@ class ItemDetailViewController: UIViewController {
     private var comments = [Comment]() {
         didSet{
             DispatchQueue.main.async {
-                
                 self.tableView.reloadData()
             }
         }

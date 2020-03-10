@@ -8,12 +8,14 @@
 
 import UIKit
 import FirebaseFirestore
+import FirebaseAuth
 
 class ItemFeedViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
     private var listener: ListenerRegistration?
+    private var databaseService = DatabaseService()
     
     private var items = [Item]() {
         didSet {
@@ -74,6 +76,35 @@ extension ItemFeedViewController: UITableViewDataSource {
         }
         present(detailVC, animated: true)
     }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            //delete item
+            let item = items[indexPath.row]
+            databaseService.deleteItem(item: item) { [weak self] (result) in
+                switch result {
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        self?.showAlert(title: "Could not delete item \(item)", message: error.localizedDescription)
+                    }
+                case .success:
+                    print("deleted item successfully")
+                }
+            }
+        }
+    }
+    // On client side: make sure the current user can only delete items they created on the app and on firebase console
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        guard let user = Auth.auth().currentUser else {
+            return false
+        }
+        let item = items[indexPath.row]
+        if item.sellerId == user.uid {
+            return true
+        } else {
+            return false
+        }
+    }
+    // to protect against accidental deletion, we will need to protect database on Firebase Security Rules
     
 }
 extension ItemFeedViewController: UITableViewDelegate {

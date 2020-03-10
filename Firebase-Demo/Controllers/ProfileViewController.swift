@@ -31,6 +31,7 @@ class ProfileViewController: UIViewController {
     }
     
     private let storageService = StorageService()
+    private let databaseService = DatabaseService()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -115,6 +116,7 @@ class ProfileViewController: UIViewController {
                     self?.showAlert(title: "Upload Error", message: "could not upload image\(error)")
                 }
             case .success(let url):
+                self?.updateDatabaseUser(displayName: displayName, photoURL: url.absoluteString)
                 let request = Auth.auth().currentUser?.createProfileChangeRequest()
                 
                 //2. change display name and update photo
@@ -136,9 +138,19 @@ class ProfileViewController: UIViewController {
                 })
             }
         }
-        
-        
     }
+    
+    private func updateDatabaseUser(displayName: String, photoURL: String) {
+        databaseService.updateDatabaseUser(displayName: displayName, photoURL: photoURL) { (result) in
+            switch result {
+            case .failure(let error):
+                print("failed to update user \(error)")
+            case .success:
+                print("successfully updated db user")
+            }
+        }
+    }
+
     
 }
 extension ProfileViewController: UITextFieldDelegate {
