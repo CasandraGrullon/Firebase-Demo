@@ -136,7 +136,7 @@ class CreateItemViewController: UIViewController {
                     self?.showAlert(title: "failed to update item", message: " \(error)")
                 }
             } else {
-                print("all went well")
+                //print("all went well")
                 DispatchQueue.main.async {
                     self?.dismiss(animated: true)
                 }

@@ -7,20 +7,25 @@
 //
 
 import Foundation
+import Firebase
 
 struct Comment {
-    let username: String
-    let userId: String
+    let commentText: String
+    let commentedBy: String
+    let commentDate: Timestamp
+    let commenterPhoto: String
     let itemId: String
-    let comment: String
-    let datePosted: Date
+    let itemName: String
+    let sellerName: String
 }
 extension Comment {
     init(_ dictionary: [String: Any]) {
-        self.username = dictionary["username"] as? String ?? "no username"
-        self.userId = dictionary["price"] as? String ?? "no user id"
-        self.itemId = dictionary["itemID"] as? String ?? "no item id"
-        self.comment = dictionary["comment"] as? String ?? "no comment"
-        self.datePosted = dictionary["datePosted"] as? Date ?? Date()
+        self.commentText = dictionary["commentText"] as? String ?? "no comment text"
+        self.commentedBy = dictionary["commentedBy"] as? String ?? "no commenter name"
+        self.commentDate = dictionary["commentDate"] as? Timestamp ?? Timestamp(date: Date())
+        self.commenterPhoto = dictionary["commentDate"] as? String ?? "no photo url"
+        self.itemId = dictionary["itemId"] as? String ?? "no item id"
+        self.itemName = dictionary["itemName"] as? String ?? "no item name"
+        self.sellerName = dictionary["sellerName"] as? String ?? "no seller name"
     }
 }

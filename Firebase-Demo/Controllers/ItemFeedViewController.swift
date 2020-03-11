@@ -72,9 +72,9 @@ extension ItemFeedViewController: UITableViewDataSource {
         let item = items[indexPath.row]
         let detailSb = UIStoryboard(name: "MainView", bundle: nil)
         let detailVC = detailSb.instantiateViewController(identifier: "ItemDetailViewController") { (coder) in
-            return ItemDetailViewController(item, coder: coder)
+            return ItemDetailViewController(coder: coder, item)
         }
-        present(detailVC, animated: true)
+        navigationController?.pushViewController(detailVC, animated: true)
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -98,6 +98,7 @@ extension ItemFeedViewController: UITableViewDataSource {
             return false
         }
         let item = items[indexPath.row]
+        
         if item.sellerId == user.uid {
             return true
         } else {

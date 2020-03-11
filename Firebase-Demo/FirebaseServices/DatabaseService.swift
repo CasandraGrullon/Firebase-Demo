@@ -84,17 +84,23 @@ class DatabaseService {
         }
     }
     
-    public func createComment(username: String, userId: String, itemId: String, comment: String, completion: @escaping (Result<String, Error>) -> ()) {
-        
-        guard let user = Auth.auth().currentUser else { return }
-        let documentRef = db.collection(DatabaseService.commentsColletion).document()
-        
-        db.collection(DatabaseService.commentsColletion).document(documentRef.documentID).setData(["username": user.displayName ?? "no user name", "userId": user.uid, "itemID": itemId, "comment": comment, "datePosted": Date()]) { (error) in
+    //creating a subcollection in items collection
+    public func postComment(item: Item, comment: String, completion: @escaping (Result<Bool, Error>) -> ()) {
+        guard let user = Auth.auth().currentUser,
+            let displayName = user.displayName else {
+                print("missing user data")
+            return
+        }
+        //we are adding onto our items collection
+        let docRef = db.collection(DatabaseService.itemsCollection).document(item.itemId).collection(DatabaseService.commentsColletion).document()
+        db.collection(DatabaseService.itemsCollection).document(item.itemId).collection(DatabaseService.commentsColletion).document(docRef.documentID).setData(["commentText": comment, "createdDate": Timestamp(date: Date()), "itemName": item.itemName, "itemId": item.itemId, "sellerName": item.sellerName, "commentedBy": displayName]) { (error) in
+            
             if let error = error {
                 completion(.failure(error))
             } else {
-                completion(.success(documentRef.documentID))
+                completion(.success(true))
             }
         }
     }
+
 }

@@ -32,6 +32,7 @@
 		C614F67B24100DD0003682FE /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C614F67A24100DD0003682FE /* StorageService.swift */; };
 		C63C6A4124096E4E0008116D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C63C6A4024096E4E0008116D /* GoogleService-Info.plist */; };
 		C63C6A442409754F0008116D /* AuthenticationSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63C6A432409754F0008116D /* AuthenticationSession.swift */; };
+		C644BDB5241973A90005871E /* HeaderVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = C644BDB4241973A90005871E /* HeaderVIew.swift */; };
 		C69383A52416CAB10096FF84 /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69383A42416CAB10096FF84 /* ItemDetailViewController.swift */; };
 		C69383A72416CAD80096FF84 /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C69383A62416CAD80096FF84 /* CommentCell.xib */; };
 		C69383A92416CAF60096FF84 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69383A82416CAF60096FF84 /* CommentCell.swift */; };
@@ -86,6 +87,7 @@
 		C614F67A24100DD0003682FE /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		C63C6A4024096E4E0008116D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C63C6A432409754F0008116D /* AuthenticationSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationSession.swift; sourceTree = "<group>"; };
+		C644BDB4241973A90005871E /* HeaderVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderVIew.swift; sourceTree = "<group>"; };
 		C69383A42416CAB10096FF84 /* ItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
 		C69383A62416CAD80096FF84 /* CommentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentCell.xib; sourceTree = "<group>"; };
 		C69383A82416CAF60096FF84 /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				C69C28A2240EDBA700CA4D73 /* ItemCell.xib */,
 				C69383A62416CAD80096FF84 /* CommentCell.xib */,
 				C69383A82416CAF60096FF84 /* CommentCell.swift */,
+				C644BDB4241973A90005871E /* HeaderVIew.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -437,6 +440,7 @@
 				C6B0D5A8240D7E5E00BC30DC /* DatabaseService.swift in Sources */,
 				C613301A240D5F950031714A /* UIViewController+Navigation.swift in Sources */,
 				57845AD124092D4300F35651 /* LoginViewController.swift in Sources */,
+				C644BDB5241973A90005871E /* HeaderVIew.swift in Sources */,
 				C6B0D5A6240D7B8F00BC30DC /* Item.swift in Sources */,
 				C6133012240D5F300031714A /* ItemFeedViewController.swift in Sources */,
 				C614F67924100AE1003682FE /* UIImageExt.swift in Sources */,

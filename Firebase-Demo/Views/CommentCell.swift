@@ -11,18 +11,19 @@ import FirebaseAuth
 import Kingfisher
 
 class CommentCell: UITableViewCell {
-
+    
     @IBOutlet weak var userProfilePic: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var commentLabel: UILabel!
     
     public func configureCell(comment: Comment) {
-        guard let user = Auth.auth().currentUser else {
-            return
-        }
-        userProfilePic.kf.setImage(with: user.photoURL)
-        userNameLabel.text = user.displayName
-        commentLabel.text = comment.comment
+        userProfilePic.kf.setImage(with: URL(string: comment.commenterPhoto))
+        userNameLabel.text = comment.commentedBy
+        commentLabel.text = comment.commentText
+        
     }
     
 }
+
+
+

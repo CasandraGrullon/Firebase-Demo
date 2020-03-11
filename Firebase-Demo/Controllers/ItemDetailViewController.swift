@@ -13,14 +13,12 @@ import FirebaseFirestore
 
 class ItemDetailViewController: UIViewController {
     
-    @IBOutlet weak var itemImage: UIImageView!
-    @IBOutlet weak var itemNameLabel: UILabel!
-    @IBOutlet weak var sellerNameLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var commentTextField: UITextField!
     @IBOutlet weak var addCommentButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var grayViewBottomConstraint: NSLayoutConstraint!
+    
+    private var originalConstraint: CGFloat = 0
     
     private var listener: ListenerRegistration?
     private var db = DatabaseService()
@@ -35,7 +33,13 @@ class ItemDetailViewController: UIViewController {
         }
     }
     
-    init?(_ item: Item, coder: NSCoder) {
+    private lazy var tapGesture: UITapGestureRecognizer = {
+       let gesture = UITapGestureRecognizer()
+        gesture.addTarget(self, action: #selector(dismissKeyboard))
+        return gesture
+    }()
+    
+    init?(coder: NSCoder, _ item: Item) { //because we are using storyboards, we need to use CODER
         self.item = item
         super.init(coder: coder)
     }
@@ -45,61 +49,96 @@ class ItemDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateItemInfo()
         tableView.delegate = self
         tableView.dataSource = self
+        commentTextField.delegate = self
+
+        registerKeyboardNotifications()
+        view.addGestureRecognizer(tapGesture)
+        
+        tableView.tableHeaderView = HeaderVIew(imageURL: item.imageURL)
+        originalConstraint = grayViewBottomConstraint.constant
         tableView.register(UINib(nibName: "CommentCell", bundle: nil), forCellReuseIdentifier: "commentCell")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        listener = Firestore.firestore().collection(DatabaseService.commentsColletion).addSnapshotListener({ (snapshot, error) in
+        registerKeyboardNotifications()
+        
+        listener = Firestore.firestore().collection(DatabaseService.itemsCollection).document(item.itemId).collection(DatabaseService.commentsColletion).addSnapshotListener({ (snapshot, error) in
+            
             if let error = error {
-                DispatchQueue.main.async {
-                    self.showAlert(title: "Unable to get comments", message: "\(error)")
-                }
+                print("could not access comments collection: \(error)")
             } else if let snapshot = snapshot {
-                DispatchQueue.main.async {
-                    let comments = snapshot.documents.map {Comment ($0.data())}
-                    self.comments = comments.filter {$0.itemId == self.item.itemId}
-                }
+                //create comments using dictionary initializer from the Comment model
+                let comments = snapshot.documents.map { Comment($0.data())}
+                self.comments = comments
             }
         })
+        
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
+        unregisterKeyboardNotifications()
         listener?.remove()
     }
     
-    private func updateItemInfo() {
-        itemImage.kf.setImage(with: URL(string: item.imageURL))
-        itemNameLabel.text = item.itemName
-        sellerNameLabel.text = item.sellerName
-        dateLabel.text = item.listedDate.convertDate()
-        let price = String(format: "%.2f", item.price)
-        priceLabel.text = "$\(price)"
-        print(item.itemId)
-    }
-    
-    
-    @IBAction func addCommentButtonPressed(_ sender: UIButton) {
-        //adds comment to firebase, presents in table view
-        guard let comment = commentTextField.text, let user = Auth.auth().currentUser, let username = user.displayName else {
-            return
-        }
-        db.createComment(username: username, userId: user.uid, itemId: item.itemId, comment: comment) { (result) in
+    private func postComment(commentText: String) {
+        db.postComment(item: item, comment: commentText) { [weak self] (result) in
             switch result {
             case .failure(let error):
                 DispatchQueue.main.async {
-                    self.showAlert(title: "could not create comment", message: "\(error)")
+                    self?.showAlert(title: "Try Again", message: error.localizedDescription)
                 }
-            case .success(let docID):
-                Firestore.firestore().collection(DatabaseService.commentsColletion).document(docID).updateData(["comment": comment])
+            case .success:
+                DispatchQueue.main.async {
+                    self?.showAlert(title: "Your comment has been posted!", message: "")
+                }
             }
         }
-        
     }
     
+    @IBAction func addCommentButtonPressed(_ sender: UIButton) {
+        //adds comments collection to item collection to firebase, presents in table view
+        guard let comment = commentTextField.text, !comment.isEmpty else {
+            showAlert(title: "Missing Fields", message: "You haven't written a comment yet")
+            return
+        }
+        postComment(commentText: comment)
+                
+    }
+    
+}
+extension ItemDetailViewController {
+    private func registerKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    private func unregisterKeyboardNotifications() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+    }
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        print(notification.userInfo ?? "")
+        guard let keyboardFrame = notification.userInfo?["UIKeyboardBoundsUserInfoKey"] as? CGRect else {
+            return
+        }
+        grayViewBottomConstraint.constant = +(keyboardFrame.height - view.safeAreaInsets.bottom)
+    }
+    
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        dismissKeyboard()
+    }
+    @objc func dismissKeyboard() {
+        grayViewBottomConstraint.constant = originalConstraint
+        commentTextField.resignFirstResponder()
+    }
+}
+extension ItemDetailViewController: UITextFieldDelegate {
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    dismissKeyboard()
+    return true
+  }
 }
 extension ItemDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -122,10 +161,5 @@ extension ItemDetailViewController: UITableViewDelegate{
         return 150
     }
 }
-extension ItemDetailViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-}
+
 
