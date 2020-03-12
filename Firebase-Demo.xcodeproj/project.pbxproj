@@ -41,6 +41,8 @@
 		C69C28A3240EDBA700CA4D73 /* ItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C69C28A2240EDBA700CA4D73 /* ItemCell.xib */; };
 		C6B0D5A6240D7B8F00BC30DC /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B0D5A5240D7B8F00BC30DC /* Item.swift */; };
 		C6B0D5A8240D7E5E00BC30DC /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B0D5A7240D7E5E00BC30DC /* DatabaseService.swift */; };
+		C6E38B23241A944000317D0C /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E38B22241A944000317D0C /* Favorite.swift */; };
+		C6E38B25241A962B00317D0C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E38B24241A962B00317D0C /* Constants.swift */; };
 		F0A5CF5CF15FF2BDBCEF16E5 /* Pods_Firebase_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1A6F4F00E21825A97F756D6 /* Pods_Firebase_Demo.framework */; };
 /* End PBXBuildFile section */
 
@@ -96,6 +98,8 @@
 		C69C28A2240EDBA700CA4D73 /* ItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCell.xib; sourceTree = "<group>"; };
 		C6B0D5A5240D7B8F00BC30DC /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		C6B0D5A7240D7E5E00BC30DC /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
+		C6E38B22241A944000317D0C /* Favorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
+		C6E38B24241A962B00317D0C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C9CC00C06BA3F63D82C9583C /* Pods-Firebase-DemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Firebase-DemoTests.release.xcconfig"; path = "Target Support Files/Pods-Firebase-DemoTests/Pods-Firebase-DemoTests.release.xcconfig"; sourceTree = "<group>"; };
 		F1A6F4F00E21825A97F756D6 /* Pods_Firebase_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Firebase_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -231,6 +235,8 @@
 				C613301F240D77420031714A /* Category.swift */,
 				C6B0D5A5240D7B8F00BC30DC /* Item.swift */,
 				C69383AA2416CE550096FF84 /* Comment.swift */,
+				C6E38B22241A944000317D0C /* Favorite.swift */,
+				C6E38B24241A962B00317D0C /* Constants.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -452,6 +458,7 @@
 				57845AF124092DBB00F35651 /* GradientView.swift in Sources */,
 				C6133018240D5F7A0031714A /* CreateItemViewController.swift in Sources */,
 				C69383A92416CAF60096FF84 /* CommentCell.swift in Sources */,
+				C6E38B23241A944000317D0C /* Favorite.swift in Sources */,
 				C6133014240D5F3C0031714A /* SellItemViewController.swift in Sources */,
 				C614F67B24100DD0003682FE /* StorageService.swift in Sources */,
 				C6133023240D77870031714A /* UIColorExt.swift in Sources */,
@@ -462,6 +469,7 @@
 				57845AF324092DDC00F35651 /* DesignableView.swift in Sources */,
 				C63C6A442409754F0008116D /* AuthenticationSession.swift in Sources */,
 				57845ACF24092D4300F35651 /* SceneDelegate.swift in Sources */,
+				C6E38B25241A962B00317D0C /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

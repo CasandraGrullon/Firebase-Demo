@@ -23,6 +23,16 @@ class ItemDetailViewController: UIViewController {
     private var listener: ListenerRegistration?
     private var db = DatabaseService()
     
+    private var isFavorite = false {
+        didSet {
+            if isFavorite {
+                navigationItem.rightBarButtonItem?.image = UIImage(systemName: "heart.fill")
+            } else {
+                navigationItem.rightBarButtonItem?.image = UIImage(systemName: "heart")
+
+            }
+        }
+    }
     private var item: Item
     
     private var comments = [Comment]() {
@@ -49,6 +59,10 @@ class ItemDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        updateUI()
+        navigationItem.title = item.itemName
+        
         tableView.delegate = self
         tableView.dataSource = self
         commentTextField.delegate = self
@@ -64,7 +78,6 @@ class ItemDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         registerKeyboardNotifications()
-        
         listener = Firestore.firestore().collection(DatabaseService.itemsCollection).document(item.itemId).collection(DatabaseService.commentsColletion).addSnapshotListener({ (snapshot, error) in
             
             if let error = error {
@@ -81,6 +94,24 @@ class ItemDetailViewController: UIViewController {
         super.viewWillDisappear(true)
         unregisterKeyboardNotifications()
         listener?.remove()
+    }
+    
+    private func updateUI() {
+        db.isItemInFavorites(item: item) { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self?.showAlert(title: "Try again", message: error.localizedDescription)
+                }
+            case .success(let success):
+                if success {
+                    self?.isFavorite = true
+                } else {
+                    self?.isFavorite = false
+                }
+                
+            }
+        }
     }
     
     private func postComment(commentText: String) {
@@ -107,6 +138,39 @@ class ItemDetailViewController: UIViewController {
         postComment(commentText: comment)
                 
     }
+    
+    @IBAction func favoriteButtonPressed(_ sender: UIBarButtonItem) {
+        if isFavorite {
+            db.removeFromFavorites(item: item) { [weak self] (result) in
+                switch result {
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        self?.showAlert(title: "try again", message: error.localizedDescription)
+                    }
+                case .success:
+                    DispatchQueue.main.async {
+                        self?.showAlert(title: "Item removed from favorites", message: "")
+                        self?.isFavorite = false
+                    }
+                }
+            }
+        } else {
+            db.addToFavorites(item: item) { [weak self] (result) in
+                switch result {
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        self?.showAlert(title: "Could not add to favorites", message: error.localizedDescription)
+                    }
+                case .success:
+                    DispatchQueue.main.async {
+                        self?.showAlert(title: "Added to Favorites", message: "♥️")
+                        self?.isFavorite = true
+                    }
+                }
+            }
+        }
+    }
+    
     
 }
 extension ItemDetailViewController {

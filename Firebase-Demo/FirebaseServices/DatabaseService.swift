@@ -19,6 +19,7 @@ class DatabaseService {
     static let itemsCollection = "items"
     static let usersCollection = "users"
     static let commentsColletion = "comments" //subcollection for items document
+    static let favoritesCollection = "favorites"
     
     public func createItem(itemName: String, price: Double, category: Category, displayName: String, dateListed: String, completion: @escaping (Result<String, Error>) -> () ) {
         guard let user = Auth.auth().currentUser else { return }
@@ -103,4 +104,61 @@ class DatabaseService {
         }
     }
 
+    public func addToFavorites(item: Item, completion: @escaping (Result<Bool, Error>) -> ()) {
+        
+        guard let user = Auth.auth().currentUser else { return }
+        db.collection(DatabaseService.usersCollection).document(user.uid).collection(DatabaseService.favoritesCollection).document(item.itemId).setData(["itemName": item.itemName, "price": item.price, "imageURL": item.imageURL, "favoritedDate": Timestamp(date: Date()), "itemId": item.itemId, "seller": item.sellerName, "sellerId": item.sellerId]) { (error) in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+        
+    }
+    
+    public func removeFromFavorites(item: Item, completion: @escaping (Result<Bool, Error>) -> () ) {
+        guard let user = Auth.auth().currentUser else { return }
+        db.collection(DatabaseService.usersCollection).document(user.uid).collection(DatabaseService.favoritesCollection).document(item.itemId).delete { (error) in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+    }
+    
+    public func isItemInFavorites(item: Item, completion: @escaping (Result<Bool, Error>) -> () ) {
+        
+        guard let user = Auth.auth().currentUser else { return }
+        
+        //whereField --> allows us to see if an item was already favorited
+        //addSnapshotListener --> continues to listen for changes to a collection
+        //getDocuments --> fetches documents ONLY ONCE!!!
+        db.collection(DatabaseService.usersCollection).document(user.uid).collection(DatabaseService.favoritesCollection).whereField("itemId", isEqualTo: item.itemId).getDocuments { (snapshot, error) in
+            if let error = error {
+                completion(.failure(error))
+            } else if let snapshot = snapshot {
+                let count = snapshot.documents.count //do we have documents??
+                if count > 0 { //documents do exist ----> item was already favorited
+                    completion(.success(true))
+                } else { //documents do not exist ----> item hasn't been favorited before
+                    completion(.success(false))
+                }
+            }
+        }
+        
+    }
+    public func fetchUserItems(userId: String, completion: @escaping (Result<[Item], Error>) -> () ) {
+        //wherefield will filter the items on the database by those that match the user id
+        db.collection(DatabaseService.itemsCollection).whereField(Constants.sellerId, isEqualTo: userId).getDocuments { (snapshot, error) in
+            if let error = error {
+                completion(.failure(error))
+            } else if let snapshot = snapshot {
+                let items = snapshot.documents.map {Item ($0.data())}
+                completion(.success(items))
+            }
+        }
+    }
+    
 }

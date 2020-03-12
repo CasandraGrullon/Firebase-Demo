@@ -146,7 +146,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="firebase-icon" translatesAutoresizingMaskIntoConstraints="NO" id="8e9-x3-vVH" customClass="DesignableImageView" customModule="Firebase_Demo" customModuleProvider="target">
-                                <rect key="frame" x="147" y="128" width="120" height="120"/>
+                                <rect key="frame" x="147" y="108" width="120" height="120"/>
                                 <color key="backgroundColor" red="0.98729866740000005" green="0.66700810690000001" blue="0.67368825440000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="Xof-cf-OGa"/>
@@ -159,7 +159,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="change display name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qy4-ur-KHz">
-                                <rect key="frame" x="20" y="268" width="374" height="44"/>
+                                <rect key="frame" x="20" y="248" width="374" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="16p-qo-Awc"/>
                                 </constraints>
@@ -167,27 +167,13 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vaV-Ca-w5V">
-                                <rect key="frame" x="20" y="332" width="374" height="21"/>
+                                <rect key="frame" x="20" y="312" width="374" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H2X-X8-n11" customClass="DesignableButton" customModule="Firebase_Demo" customModuleProvider="target">
-                                <rect key="frame" x="158" y="433" width="98" height="30"/>
-                                <color key="backgroundColor" red="0.98729866740000005" green="0.66700810690000001" blue="0.67368825440000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <rect key="contentStretch" x="0.40000000000000002" y="0.0" width="1" height="1"/>
-                                <state key="normal" title="Update Profile"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="13"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="updateButtonPressed:" destination="nBU-NS-jc0" eventType="touchUpInside" id="eMw-Iv-qSt"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9n-Cb-xPr" customClass="DesignableButton" customModule="Firebase_Demo" customModuleProvider="target">
-                                <rect key="frame" x="275" y="166" width="44" height="44"/>
+                                <rect key="frame" x="275" y="146" width="44" height="44"/>
                                 <color key="backgroundColor" red="0.98729866740000005" green="0.66700810690000001" blue="0.67368825440000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="2L9-5X-Dge"/>
@@ -204,28 +190,65 @@
                                     <action selector="editProfilePicButtonPressed:" destination="nBU-NS-jc0" eventType="touchUpInside" id="sUD-Ve-aMy"/>
                                 </connections>
                             </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="28L-eb-J6t">
+                                <rect key="frame" x="10" y="353" width="394" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="0yK-Iq-Cv1"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="My Items"/>
+                                    <segment title="Favorites"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segmentedControlPressed:" destination="nBU-NS-jc0" eventType="valueChanged" id="ay8-N4-Aai"/>
+                                </connections>
+                            </segmentedControl>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="e2b-Z6-Wup">
+                                <rect key="frame" x="0.0" y="397" width="414" height="416"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="sXW-zS-jm0">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sXW-zS-jm0" id="eqM-RA-4BD">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="H2X-X8-n11" firstAttribute="centerX" secondItem="MPn-ab-MHW" secondAttribute="centerX" id="77e-iE-PvB"/>
+                            <constraint firstItem="e2b-Z6-Wup" firstAttribute="top" secondItem="28L-eb-J6t" secondAttribute="bottom" id="4OY-kO-gGQ"/>
+                            <constraint firstItem="e2b-Z6-Wup" firstAttribute="leading" secondItem="cdT-of-OFZ" secondAttribute="leading" id="7Yr-VR-Ov9"/>
                             <constraint firstItem="qy4-ur-KHz" firstAttribute="leading" secondItem="cdT-of-OFZ" secondAttribute="leading" constant="20" id="Bee-9j-gRX"/>
                             <constraint firstItem="vaV-Ca-w5V" firstAttribute="top" secondItem="qy4-ur-KHz" secondAttribute="bottom" constant="20" id="Dhl-2P-wlK"/>
                             <constraint firstItem="vaV-Ca-w5V" firstAttribute="leading" secondItem="cdT-of-OFZ" secondAttribute="leading" constant="20" id="G1T-zA-XVf"/>
-                            <constraint firstItem="H2X-X8-n11" firstAttribute="centerY" secondItem="MPn-ab-MHW" secondAttribute="centerY" id="Lr9-CQ-vHe"/>
+                            <constraint firstItem="28L-eb-J6t" firstAttribute="leading" secondItem="cdT-of-OFZ" secondAttribute="leading" constant="10" id="Gv9-Ia-1HM"/>
+                            <constraint firstItem="cdT-of-OFZ" firstAttribute="bottom" secondItem="e2b-Z6-Wup" secondAttribute="bottom" id="Iio-aj-YdP"/>
+                            <constraint firstItem="28L-eb-J6t" firstAttribute="top" secondItem="vaV-Ca-w5V" secondAttribute="bottom" constant="20" id="LsI-Aj-GHd"/>
                             <constraint firstItem="J9n-Cb-xPr" firstAttribute="leading" secondItem="8e9-x3-vVH" secondAttribute="trailing" constant="8" id="Zmt-Hm-QGm"/>
                             <constraint firstItem="8e9-x3-vVH" firstAttribute="centerX" secondItem="MPn-ab-MHW" secondAttribute="centerX" id="bid-7g-3V8"/>
                             <constraint firstItem="cdT-of-OFZ" firstAttribute="trailing" secondItem="vaV-Ca-w5V" secondAttribute="trailing" constant="20" id="dWU-sV-SnE"/>
                             <constraint firstItem="qy4-ur-KHz" firstAttribute="top" secondItem="8e9-x3-vVH" secondAttribute="bottom" constant="20" id="eZD-iS-Gpv"/>
                             <constraint firstItem="cdT-of-OFZ" firstAttribute="trailing" secondItem="qy4-ur-KHz" secondAttribute="trailing" constant="20" id="jai-Wl-ESz"/>
-                            <constraint firstItem="8e9-x3-vVH" firstAttribute="top" secondItem="cdT-of-OFZ" secondAttribute="top" constant="40" id="kjz-bk-yKe"/>
+                            <constraint firstItem="8e9-x3-vVH" firstAttribute="top" secondItem="cdT-of-OFZ" secondAttribute="top" constant="20" id="kjz-bk-yKe"/>
+                            <constraint firstItem="cdT-of-OFZ" firstAttribute="trailing" secondItem="e2b-Z6-Wup" secondAttribute="trailing" id="qzN-Hn-gGg"/>
                             <constraint firstItem="J9n-Cb-xPr" firstAttribute="centerY" secondItem="8e9-x3-vVH" secondAttribute="centerY" id="upy-h8-5sq"/>
+                            <constraint firstItem="cdT-of-OFZ" firstAttribute="trailing" secondItem="28L-eb-J6t" secondAttribute="trailing" constant="10" id="y4X-Dz-Qzf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cdT-of-OFZ"/>
                     </view>
                     <navigationItem key="navigationItem" id="JAa-Fr-hew">
-                        <barButtonItem key="rightBarButtonItem" title="Sign Out" id="WSV-Xv-RZn">
+                        <barButtonItem key="leftBarButtonItem" title="Sign Out" id="WSV-Xv-RZn">
                             <connections>
-                                <action selector="signOutButtonPressed:" destination="nBU-NS-jc0" id="oKx-Qd-EUT"/>
+                                <action selector="signOutButtonPressed:" destination="nBU-NS-jc0" id="c4V-on-I4T"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Update Profile" id="Ktx-CF-VNo">
+                            <connections>
+                                <action selector="updateButtonPressed:" destination="nBU-NS-jc0" id="Lqc-C7-rQO"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -233,13 +256,14 @@
                         <outlet property="displayNameTextField" destination="qy4-ur-KHz" id="wrT-b9-NrT"/>
                         <outlet property="emailLabel" destination="vaV-Ca-w5V" id="eNM-Nq-155"/>
                         <outlet property="profilePicture" destination="8e9-x3-vVH" id="4Gy-D9-YQb"/>
+                        <outlet property="tableview" destination="e2b-Z6-Wup" id="GXl-B4-cwJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6af-W4-iF2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3334.7826086956525" y="-360.26785714285711"/>
         </scene>
-        <!--Item Feed View Controller-->
+        <!--Market Place-->
         <scene sceneID="A1W-49-WTt">
             <objects>
                 <viewController storyboardIdentifier="ItemFeedViewController" id="xMt-3o-RwI" customClass="ItemFeedViewController" customModule="Firebase_Demo" customModuleProvider="target" sceneMemberID="viewController">
@@ -287,7 +311,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="SX6-Ov-zoY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="oPY-Uh-rPx"/>
+                    <navigationItem key="navigationItem" title="Market Place" id="oPY-Uh-rPx"/>
                     <connections>
                         <outlet property="tableView" destination="RM4-Ic-cZ9" id="7Kf-t8-gUM"/>
                     </connections>
@@ -308,10 +332,11 @@
                                 <rect key="frame" x="0.0" y="762" width="414" height="100"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1G9-TI-W3F">
-                                        <rect key="frame" x="360" y="10" width="44" height="22"/>
+                                        <rect key="frame" x="360" y="30" width="44" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="44" id="xwR-wc-Alx"/>
                                         </constraints>
+                                        <color key="tintColor" red="0.1950863766" green="0.46498741189999998" blue="0.78852712560000005" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
                                         <state key="normal" image="plus.bubble.fill" catalog="system"/>
                                         <connections>
                                             <action selector="addCommentButtonPressed:" destination="EgV-S9-7xX" eventType="touchUpInside" id="ALt-e7-NJB"/>
@@ -326,11 +351,11 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.73392402658718392" green="0.84119390302292374" blue="0.87331456218274117" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstItem="igd-WP-FmH" firstAttribute="leading" secondItem="rT0-9N-Zbe" secondAttribute="leading" constant="10" id="4Xi-yn-sDb"/>
                                     <constraint firstAttribute="trailing" secondItem="1G9-TI-W3F" secondAttribute="trailing" constant="10" id="9dq-90-wbO"/>
-                                    <constraint firstItem="1G9-TI-W3F" firstAttribute="top" secondItem="rT0-9N-Zbe" secondAttribute="top" constant="10" id="Cxl-pq-Etq"/>
+                                    <constraint firstItem="1G9-TI-W3F" firstAttribute="top" secondItem="rT0-9N-Zbe" secondAttribute="top" constant="30" id="Cxl-pq-Etq"/>
                                     <constraint firstItem="1G9-TI-W3F" firstAttribute="leading" secondItem="igd-WP-FmH" secondAttribute="trailing" constant="8" id="Z4l-6j-iud"/>
                                     <constraint firstItem="igd-WP-FmH" firstAttribute="top" secondItem="rT0-9N-Zbe" secondAttribute="top" constant="10" id="uXn-Bl-wyX"/>
                                     <constraint firstAttribute="height" constant="100" id="wsg-oN-O1Y"/>
@@ -364,7 +389,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="DUh-w4-jKE"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Yee-g7-CeZ"/>
+                    <navigationItem key="navigationItem" id="Yee-g7-CeZ">
+                        <barButtonItem key="rightBarButtonItem" image="heart" catalog="system" id="vju-dN-cd5">
+                            <color key="tintColor" red="1" green="0.0093617555430000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <connections>
+                                <action selector="favoriteButtonPressed:" destination="EgV-S9-7xX" id="kTz-vd-4j6"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="addCommentButton" destination="1G9-TI-W3F" id="Mwz-pm-z0T"/>
                         <outlet property="commentTextField" destination="igd-WP-FmH" id="dGh-Ji-FzC"/>
@@ -473,6 +505,7 @@
     <resources>
         <image name="dollarsign.circle" catalog="system" width="64" height="60"/>
         <image name="firebase-icon" width="180" height="180"/>
+        <image name="heart" catalog="system" width="64" height="54"/>
         <image name="magnifyingglass" catalog="system" width="64" height="56"/>
         <image name="person" catalog="system" width="64" height="58"/>
         <image name="plus" catalog="system" width="64" height="56"/>
