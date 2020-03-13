@@ -11,19 +11,30 @@ import Firebase
 
 struct Favorite {
     let itemName: String
-    let price: String
-    let itemURL: String
+    let price: Double
+    let imageURL: String
     let favoritedDate: Timestamp
     let seller: String
     let sellerId: String
 }
 extension Favorite {
-        init(_ dictionary: [String: Any]) {
-        self.itemName = dictionary["itemName"] as? String ?? "no item name"
-        self.price = dictionary["price"] as? String ?? "no price"
-        self.itemURL = dictionary["itemURL"] as? String ?? "no item url"
-        self.favoritedDate = dictionary["favoritedDate"] as? Timestamp ?? Timestamp(date: Date())
-        self.seller = dictionary["seller"] as? String ?? "no seller name"
-        self.sellerId = dictionary["sellerId"] as? String ?? "no seller id"
+    //failable initializer
+    //all properties need to exist for the object to be created
+    //if something is nil, Favorite will not be created
+    init?(_ dictionary: [String : Any] ) {
+        guard let itemName = dictionary["itemName"] as? String,
+            let price = dictionary["price"] as? Double,
+            let imageURL = dictionary["imageURL"] as? String,
+            let favoritedDate = dictionary["favoritedDate"] as? Timestamp,
+            let seller = dictionary["seller"] as? String,
+            let sellerId = dictionary["sellerId"] as? String else {
+                return nil
+            }
+        self.itemName = itemName
+        self.price = price
+        self.imageURL = imageURL
+        self.favoritedDate = favoritedDate
+        self.seller = seller
+        self.sellerId = sellerId
     }
 }

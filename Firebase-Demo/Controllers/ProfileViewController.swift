@@ -32,7 +32,9 @@ class ProfileViewController: UIViewController {
     
     private var favorites = [Favorite]() {
         didSet {
-            
+            DispatchQueue.main.async {
+                self.tableview.reloadData()
+            }
         }
     }
     
@@ -69,16 +71,19 @@ class ProfileViewController: UIViewController {
         tableview.dataSource = self
         tableview.delegate = self
         tableview.register(UINib(nibName: "ItemCell", bundle: nil), forCellReuseIdentifier: "itemCell")
-        fetchItems()
-        
+        loadData()
         refreshControl = UIRefreshControl()
         tableview.refreshControl = refreshControl
-        refreshControl.addTarget(self, action: #selector(fetchItems), for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(loadData), for: .valueChanged)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         updateUI()
+    }
+    @objc private func loadData() {
+        fetchItems()
+        fetchFavorites()
     }
     @objc private func fetchItems() {
         guard let user = Auth.auth().currentUser else {
@@ -100,16 +105,28 @@ class ProfileViewController: UIViewController {
             }
         }
     }
+    @objc private func fetchFavorites() {
+        databaseService.fetchFavorites(completion: { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                print("could not load favorites \(error)")
+                DispatchQueue.main.async {
+                    self?.refreshControl.endRefreshing()
+                }
+            case .success(let favorites):
+                self?.favorites = favorites
+                DispatchQueue.main.async {
+                    self?.refreshControl.endRefreshing()
+                }
+            }
+        })
+    }
     
     private func updateUI() {
         guard let user = Auth.auth().currentUser else {
             return
         }
-        //user.displayName
-        
-        //need kingfisher!
         profilePicture.kf.setImage(with: user.photoURL)
-        //user.phoneNumber
         emailLabel.text = user.email
         displayNameTextField.text = user.displayName
     }
@@ -262,7 +279,7 @@ extension ProfileViewController: UITableViewDataSource {
             cell.configureCell(item: item)
         } else {
             let favorite = favorites[indexPath.row]
-            //cell.configureCell(item: favorite)
+            cell.configureCell(favorite: favorite)
         }
         
         return cell

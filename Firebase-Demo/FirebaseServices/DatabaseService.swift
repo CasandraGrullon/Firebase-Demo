@@ -161,4 +161,16 @@ class DatabaseService {
         }
     }
     
+    public func fetchFavorites(completion: @escaping(Result<[Favorite], Error>) -> ()) {
+        //accessing the users collection -> document: userId -> favorites collection -> get documents
+        guard let user = Auth.auth().currentUser else { return }
+        db.collection(DatabaseService.usersCollection).document(user.uid).collection(DatabaseService.favoritesCollection).getDocuments { (snapshot, error) in
+            if let error = error {
+                completion(.failure(error))
+            } else if let snapshot = snapshot { //query snapshot is the data in our firebase storage
+                let favorites = snapshot.documents.compactMap {Favorite ($0.data())} //because favorite has a failable initializer (init?() returns Favorite?), we need to use compactMap to remove all optional values
+                completion(.success(favorites))
+            }
+        }
+    }
 }

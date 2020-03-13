@@ -7,12 +7,13 @@
 //
 
 import Foundation
+import Firebase
 
 struct Item {
     let itemName: String
     let price: Double
     let itemId: String //document id
-    let listedDate: Date
+    let listedDate: Timestamp
     let sellerName: String
     let sellerId: String //id is generated when they sign up. It will not change if the user updates their username
     let categoryName: String
@@ -25,7 +26,7 @@ extension Item {
         self.itemName = dictionary["itemName"] as? String ?? "no item name"
         self.price = dictionary["price"] as? Double ?? 0
         self.itemId = dictionary["itemID"] as? String ?? "no item id"
-        self.listedDate = dictionary["listedDate"] as? Date ?? Date()
+        self.listedDate = dictionary["listedDate"] as? Timestamp ?? Timestamp(date: Date())
         self.sellerName = dictionary["sellerName"] as? String ?? "no username"
         self.sellerId = dictionary["sellerId"] as? String ?? "no seller id"
         self.categoryName = dictionary["categoryName"] as? String ?? "no category name"
