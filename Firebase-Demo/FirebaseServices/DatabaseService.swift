@@ -156,7 +156,7 @@ class DatabaseService {
                 completion(.failure(error))
             } else if let snapshot = snapshot {
                 let items = snapshot.documents.map {Item ($0.data())}
-                completion(.success(items))
+                completion(.success(items.sorted(by: {$0.listedDate.seconds > $1.listedDate.seconds})))
             }
         }
     }
@@ -169,7 +169,7 @@ class DatabaseService {
                 completion(.failure(error))
             } else if let snapshot = snapshot { //query snapshot is the data in our firebase storage
                 let favorites = snapshot.documents.compactMap {Favorite ($0.data())} //because favorite has a failable initializer (init?() returns Favorite?), we need to use compactMap to remove all optional values
-                completion(.success(favorites))
+                completion(.success(favorites.sorted(by: {$0.favoritedDate.seconds > $1.favoritedDate.seconds})))
             }
         }
     }
