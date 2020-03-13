@@ -22,6 +22,23 @@ class ItemCell: UITableViewCell {
         return formatter
     }()
     
+    private lazy var tapGesture: UITapGestureRecognizer = {
+       let gesture = UITapGestureRecognizer()
+        gesture.addTarget(self, action: #selector(handleTap(_:)))
+        return gesture
+    }()
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        sellerNameLabel.textColor = #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)
+        sellerNameLabel.addGestureRecognizer(tapGesture)
+        
+    }
+    
+    @objc private func handleTap(_ gesture: UITapGestureRecognizer) {
+        print("was tapped")
+    }
+    
     
     public func configureCell(item: Item) {
         updateUI(imageURL: item.imageURL, itemName: item.itemName, sellerName: item.sellerName, dateCreated: item.listedDate.dateValue(), price: item.price)
