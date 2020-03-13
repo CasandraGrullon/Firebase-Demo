@@ -29,7 +29,7 @@
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Seller Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LTC-NY-yur">
                         <rect key="frame" x="355" y="53.5" width="487" height="21"/>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -46,27 +46,27 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="smR-nf-52a">
-                        <rect key="frame" x="355" y="115.5" width="487" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <rect key="frame" x="355" y="115.5" width="42" height="21"/>
+                        <color key="backgroundColor" red="1" green="0.53833175190000004" blue="0.70418737229999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="LTC-NY-yur" firstAttribute="leading" secondItem="0AC-0Q-2vv" secondAttribute="trailing" constant="10" id="7rg-dh-wiC"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="smR-nf-52a" secondAttribute="trailing" constant="10" id="AdC-SS-6H8"/>
-                    <constraint firstItem="smR-nf-52a" firstAttribute="leading" secondItem="0AC-0Q-2vv" secondAttribute="trailing" constant="10" id="FZO-Au-VdD"/>
                     <constraint firstItem="BSV-NE-s07" firstAttribute="leading" secondItem="0AC-0Q-2vv" secondAttribute="trailing" constant="10" id="I3T-Fb-odn"/>
                     <constraint firstAttribute="trailingMargin" secondItem="BSV-NE-s07" secondAttribute="trailing" constant="10" id="J0I-AY-szB"/>
                     <constraint firstAttribute="trailing" secondItem="lHa-8a-UFR" secondAttribute="trailing" constant="10" id="LJZ-JE-Kly"/>
                     <constraint firstItem="lHa-8a-UFR" firstAttribute="leading" secondItem="0AC-0Q-2vv" secondAttribute="trailing" constant="10" id="NRQ-kU-kzm"/>
                     <constraint firstItem="LTC-NY-yur" firstAttribute="top" secondItem="lHa-8a-UFR" secondAttribute="bottom" constant="10" id="Ro4-oK-18q"/>
+                    <constraint firstItem="smR-nf-52a" firstAttribute="leading" secondItem="0AC-0Q-2vv" secondAttribute="trailing" constant="10" id="UhT-au-fSF"/>
                     <constraint firstItem="0AC-0Q-2vv" firstAttribute="top" secondItem="NET-Q3-tad" secondAttribute="topMargin" constant="8" id="XZ9-LY-8d8"/>
                     <constraint firstItem="BSV-NE-s07" firstAttribute="top" secondItem="LTC-NY-yur" secondAttribute="bottom" constant="10" id="XpQ-aG-pns"/>
                     <constraint firstAttribute="trailingMargin" secondItem="LTC-NY-yur" secondAttribute="trailing" constant="10" id="YPk-4z-kHx"/>
                     <constraint firstItem="0AC-0Q-2vv" firstAttribute="leading" secondItem="NET-Q3-tad" secondAttribute="leadingMargin" constant="8" id="ccA-ig-8NG"/>
-                    <constraint firstItem="smR-nf-52a" firstAttribute="top" secondItem="BSV-NE-s07" secondAttribute="bottom" constant="10" id="jjV-Sq-eQ3"/>
                     <constraint firstAttribute="bottomMargin" secondItem="0AC-0Q-2vv" secondAttribute="bottom" constant="8" id="ks8-Tq-1cc"/>
+                    <constraint firstItem="smR-nf-52a" firstAttribute="top" secondItem="BSV-NE-s07" secondAttribute="bottom" constant="10" id="lEZ-mo-F5a"/>
                     <constraint firstItem="lHa-8a-UFR" firstAttribute="top" secondItem="NET-Q3-tad" secondAttribute="top" constant="10" id="nV5-41-LNd"/>
                 </constraints>
             </tableViewCellContentView>

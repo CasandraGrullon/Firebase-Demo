@@ -66,6 +66,7 @@ extension ItemFeedViewController: UITableViewDataSource {
         }
         let item = items[indexPath.row]
         cell.configureCell(item: item)
+        cell.delegate = self
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -112,4 +113,16 @@ extension ItemFeedViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }
+}
+
+extension ItemFeedViewController: ItemCellDelegate {
+    func didTapSellerName(_ itemCell: ItemCell, item: Item) {
+        let storyboard = UIStoryboard(name: "MainView", bundle: nil)
+        let sellerItemsVC = storyboard.instantiateViewController(identifier: "SellerItemsControllerViewController") { (coder) in
+            return SellerItemsControllerViewController(coder: coder, item: item)
+        }
+        navigationController?.pushViewController(sellerItemsVC, animated: true)        
+    }
+    
+    
 }

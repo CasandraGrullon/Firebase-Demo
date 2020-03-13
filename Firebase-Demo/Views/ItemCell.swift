@@ -9,6 +9,10 @@
 import UIKit
 import Kingfisher
 
+protocol ItemCellDelegate: AnyObject {
+    func didTapSellerName(_ itemCell: ItemCell, item: Item)
+}
+
 class ItemCell: UITableViewCell {
 
     @IBOutlet weak var itemImage: UIImageView!
@@ -28,19 +32,24 @@ class ItemCell: UITableViewCell {
         return gesture
     }()
     
+    private var currentItem: Item!
+    weak var delegate: ItemCellDelegate?
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         sellerNameLabel.textColor = #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)
+        sellerNameLabel.isUserInteractionEnabled = true
         sellerNameLabel.addGestureRecognizer(tapGesture)
         
     }
     
     @objc private func handleTap(_ gesture: UITapGestureRecognizer) {
-        print("was tapped")
+        delegate?.didTapSellerName(self, item: currentItem)
     }
     
     
     public func configureCell(item: Item) {
+        currentItem = item
         updateUI(imageURL: item.imageURL, itemName: item.itemName, sellerName: item.sellerName, dateCreated: item.listedDate.dateValue(), price: item.price)
     }
     public func configureCell(favorite: Favorite) {

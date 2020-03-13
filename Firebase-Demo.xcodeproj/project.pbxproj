@@ -43,6 +43,7 @@
 		C6B0D5A8240D7E5E00BC30DC /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B0D5A7240D7E5E00BC30DC /* DatabaseService.swift */; };
 		C6E38B23241A944000317D0C /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E38B22241A944000317D0C /* Favorite.swift */; };
 		C6E38B25241A962B00317D0C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E38B24241A962B00317D0C /* Constants.swift */; };
+		C6E38B53241BE56900317D0C /* SellerItemsControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E38B52241BE56900317D0C /* SellerItemsControllerViewController.swift */; };
 		F0A5CF5CF15FF2BDBCEF16E5 /* Pods_Firebase_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1A6F4F00E21825A97F756D6 /* Pods_Firebase_Demo.framework */; };
 /* End PBXBuildFile section */
 
@@ -100,6 +101,7 @@
 		C6B0D5A7240D7E5E00BC30DC /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		C6E38B22241A944000317D0C /* Favorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
 		C6E38B24241A962B00317D0C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		C6E38B52241BE56900317D0C /* SellerItemsControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellerItemsControllerViewController.swift; sourceTree = "<group>"; };
 		C9CC00C06BA3F63D82C9583C /* Pods-Firebase-DemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Firebase-DemoTests.release.xcconfig"; path = "Target Support Files/Pods-Firebase-DemoTests/Pods-Firebase-DemoTests.release.xcconfig"; sourceTree = "<group>"; };
 		F1A6F4F00E21825A97F756D6 /* Pods_Firebase_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Firebase_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -201,6 +203,7 @@
 				C613300F240D5F110031714A /* MainTabBarController.swift */,
 				C6133011240D5F300031714A /* ItemFeedViewController.swift */,
 				C69383A42416CAB10096FF84 /* ItemDetailViewController.swift */,
+				C6E38B52241BE56900317D0C /* SellerItemsControllerViewController.swift */,
 				C6133013240D5F3C0031714A /* SellItemViewController.swift */,
 				C6133017240D5F7A0031714A /* CreateItemViewController.swift */,
 				C6133015240D5F480031714A /* ProfileViewController.swift */,
@@ -443,6 +446,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6E38B53241BE56900317D0C /* SellerItemsControllerViewController.swift in Sources */,
 				C6B0D5A8240D7E5E00BC30DC /* DatabaseService.swift in Sources */,
 				C613301A240D5F950031714A /* UIViewController+Navigation.swift in Sources */,
 				57845AD124092D4300F35651 /* LoginViewController.swift in Sources */,
