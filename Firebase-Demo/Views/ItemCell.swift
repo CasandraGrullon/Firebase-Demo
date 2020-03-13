@@ -20,11 +20,6 @@ class ItemCell: UITableViewCell {
     @IBOutlet weak var sellerNameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
-    private lazy var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEEE, MMM d, h:mm a"
-        return formatter
-    }()
     
     private lazy var tapGesture: UITapGestureRecognizer = {
        let gesture = UITapGestureRecognizer()
@@ -58,22 +53,12 @@ class ItemCell: UITableViewCell {
     
     private func updateUI(imageURL: String, itemName: String, sellerName: String, dateCreated: Date, price: Double) {
         itemNameLabel.text = itemName
-        sellerNameLabel.text = sellerName
-        dateLabel.text = dateCreated.description
+        sellerNameLabel.text = "@" + sellerName
+        dateLabel.text = dateCreated.dateString()
         let priceString = String(format: "%.2f", price)
         priceLabel.text = "$\(priceString)"
         itemImage.kf.setImage(with: URL(string: imageURL))
     }
     
 }
-extension Date {
-    func convertDate() -> String {
-        let date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeStyle = DateFormatter.Style.medium
-        dateFormatter.dateFormat = "MM/dd/yyyy HH:mm"
-        dateFormatter.timeZone = .current
-        let localDate = dateFormatter.string(from: date)
-        return localDate
-    }
-}
+

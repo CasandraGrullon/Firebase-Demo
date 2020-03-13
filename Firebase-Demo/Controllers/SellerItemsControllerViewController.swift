@@ -37,7 +37,7 @@ class SellerItemsControllerViewController: UIViewController {
         configureTableView()
         fetchItems()
         fetchUserPhoto()
-        navigationItem.title = item.sellerName
+        navigationItem.title = "@" + item.sellerName
     }
     private func fetchItems() {
         //TODO: refactor DatabaseService to a singleton

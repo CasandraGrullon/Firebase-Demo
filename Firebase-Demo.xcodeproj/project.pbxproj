@@ -44,6 +44,7 @@
 		C6E38B23241A944000317D0C /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E38B22241A944000317D0C /* Favorite.swift */; };
 		C6E38B25241A962B00317D0C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E38B24241A962B00317D0C /* Constants.swift */; };
 		C6E38B53241BE56900317D0C /* SellerItemsControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E38B52241BE56900317D0C /* SellerItemsControllerViewController.swift */; };
+		C6E38B55241BEEF300317D0C /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E38B54241BEEF300317D0C /* Date+Extensions.swift */; };
 		F0A5CF5CF15FF2BDBCEF16E5 /* Pods_Firebase_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1A6F4F00E21825A97F756D6 /* Pods_Firebase_Demo.framework */; };
 /* End PBXBuildFile section */
 
@@ -102,6 +103,7 @@
 		C6E38B22241A944000317D0C /* Favorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
 		C6E38B24241A962B00317D0C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C6E38B52241BE56900317D0C /* SellerItemsControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellerItemsControllerViewController.swift; sourceTree = "<group>"; };
+		C6E38B54241BEEF300317D0C /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		C9CC00C06BA3F63D82C9583C /* Pods-Firebase-DemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Firebase-DemoTests.release.xcconfig"; path = "Target Support Files/Pods-Firebase-DemoTests/Pods-Firebase-DemoTests.release.xcconfig"; sourceTree = "<group>"; };
 		F1A6F4F00E21825A97F756D6 /* Pods_Firebase_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Firebase_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -251,6 +253,7 @@
 				C613301B240D5FA50031714A /* UIViewController+Alerts.swift */,
 				C6133022240D77870031714A /* UIColorExt.swift */,
 				C614F67824100AE1003682FE /* UIImageExt.swift */,
+				C6E38B54241BEEF300317D0C /* Date+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -470,6 +473,7 @@
 				C6133010240D5F110031714A /* MainTabBarController.swift in Sources */,
 				C69383AB2416CE550096FF84 /* Comment.swift in Sources */,
 				C6133020240D77420031714A /* Category.swift in Sources */,
+				C6E38B55241BEEF300317D0C /* Date+Extensions.swift in Sources */,
 				57845AF324092DDC00F35651 /* DesignableView.swift in Sources */,
 				C63C6A442409754F0008116D /* AuthenticationSession.swift in Sources */,
 				57845ACF24092D4300F35651 /* SceneDelegate.swift in Sources */,

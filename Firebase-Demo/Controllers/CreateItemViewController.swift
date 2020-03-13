@@ -100,7 +100,7 @@ class CreateItemViewController: UIViewController {
         
         let resizePhoto = UIImage.resizeImage(originalImage: itemImage, rect: itemImageView.bounds)
         
-        let dateListed = Date().convertDate()
+        let dateListed = Date().dateString()
         
         dbService.createItem(itemName: itemName, price: price, category: category, displayName: displayName, dateListed: dateListed) { [weak self] (result) in
             switch result {
